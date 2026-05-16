@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const res = await fetch("http://localhost:5000/api/auth/login", {
+    const res = await fetch(`${process.env.NEXT_BACKEND_URL}/api/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = async (username, email, password) => {
-    const res = await fetch("http://localhost:5000/api/auth/register", {
+    const res = await fetch(`${process.env.NEXT_BACKEND_URL}/api/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
