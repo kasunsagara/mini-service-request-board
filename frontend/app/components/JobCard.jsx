@@ -22,13 +22,11 @@ export default function JobCard({ job }) {
   return (
     <article className="group relative flex flex-col h-full bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-[0_8px_28px_-4px_rgba(99,102,241,0.18)] hover:border-indigo-200 transition-all duration-300 hover:-translate-y-1 overflow-hidden">
 
-      {/* Accent bar on hover */}
       <span
         aria-hidden
         className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-indigo-500 via-violet-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
       />
 
-      {/* Header */}
       <div className="flex justify-between items-start gap-3 mb-4">
         <h3 className="text-base font-bold text-slate-900 group-hover:text-indigo-700 transition-colors leading-snug line-clamp-2">
           {job.title}
@@ -40,12 +38,10 @@ export default function JobCard({ job }) {
         </span>
       </div>
 
-      {/* Description */}
       <p className="text-sm text-slate-500 leading-relaxed line-clamp-3 flex-1 mb-5">
         {job.description}
       </p>
 
-      {/* Tags */}
       <div className="flex flex-wrap gap-2 mb-5">
         {job.category && (
           <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-indigo-600 bg-indigo-50 border border-indigo-100 px-2.5 py-1 rounded-lg">
@@ -61,7 +57,6 @@ export default function JobCard({ job }) {
         )}
       </div>
 
-      {/* Footer */}
       <div className="pt-4 border-t border-slate-100 flex items-center justify-between mt-auto">
         <time className="text-xs text-slate-400 font-medium">
           {new Date(job.createdAt).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}

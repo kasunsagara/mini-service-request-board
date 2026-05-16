@@ -14,7 +14,6 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
 
-          {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
             <div className="w-8 h-8 rounded-xl bg-indigo-600 flex items-center justify-center shadow-md shadow-indigo-500/30 group-hover:bg-indigo-700 transition-colors">
               <HiOutlineBriefcase className="w-4.5 h-4.5 text-white" />
@@ -24,7 +23,6 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop nav */}
           <div className="hidden sm:flex items-center gap-1.5">
             <Link
               href="/"
@@ -43,7 +41,6 @@ export default function Navbar() {
                   Post Request
                 </Link>
 
-                {/* User pill */}
                 <div className="flex items-center gap-2 ml-1 pl-3 border-l border-slate-200">
                   <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">
                     {user.username?.charAt(0).toUpperCase()}
@@ -76,7 +73,6 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Mobile hamburger */}
           <button
             className="sm:hidden p-2 rounded-lg text-slate-500 hover:bg-slate-100"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -89,7 +85,6 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Mobile menu */}
         {menuOpen && (
           <div className="sm:hidden border-t border-slate-100 py-3 flex flex-col gap-1">
             <Link href="/" onClick={() => setMenuOpen(false)} className="px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-indigo-50 rounded-lg">

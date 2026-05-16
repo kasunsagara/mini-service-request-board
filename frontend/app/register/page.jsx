@@ -24,7 +24,6 @@ export default function RegisterPage() {
     <div className="min-h-[80vh] flex items-center justify-center px-4 sb-animate">
       <div className="w-full max-w-md">
 
-        {/* Logo mark */}
         <div className="flex justify-center mb-8">
           <div className="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
             <HiOutlineBriefcase className="w-6 h-6 text-white" />

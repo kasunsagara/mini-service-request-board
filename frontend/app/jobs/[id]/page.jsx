@@ -72,7 +72,6 @@ export default function JobDetailPage({ params }) {
 
   const handleStatusChange = async (e) => {
     const newStatus = e.target.value;
-    // Optimistic update
     setJob((prev) => ({ ...prev, status: newStatus }));
     setUpdating(true);
     try {
@@ -86,7 +85,7 @@ export default function JobDetailPage({ params }) {
       setJob(data.data ?? data);
     } catch (err) {
       alert(err.message);
-      fetchJob(); // revert on error
+      fetchJob(); 
     } finally {
       setUpdating(false);
     }
@@ -115,7 +114,6 @@ export default function JobDetailPage({ params }) {
   const isOwner = user && job && String(job.user) === String(user._id);
   const statusStyle = job ? (STATUS_CONFIG[job.status] || STATUS_CONFIG.Closed) : null;
 
-  /* ── States ─────────────────────────────────────── */
   if (loading) return (
     <div className="flex items-center justify-center min-h-[50vh]">
       <div className="flex flex-col items-center gap-3">
@@ -141,7 +139,6 @@ export default function JobDetailPage({ params }) {
   return (
     <div className="max-w-3xl mx-auto sb-animate">
 
-      {/* Back */}
       <Link href="/" className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors mb-6">
         <HiArrowLeft className="w-4 h-4" />
         Back to Jobs
@@ -149,18 +146,15 @@ export default function JobDetailPage({ params }) {
 
       <div className="sb-card overflow-hidden">
 
-        {/* Top accent */}
         <div className="h-1 bg-gradient-to-r from-indigo-500 via-violet-500 to-blue-500" />
 
         <div className="p-7 sm:p-10">
 
-          {/* Title row */}
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-8">
             <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight leading-tight">
               {job.title}
             </h1>
 
-            {/* Status selector */}
             <div className="shrink-0 flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2">
               <span className={`w-2 h-2 rounded-full ${statusStyle.dot}`} />
               <div className="relative">
@@ -179,7 +173,6 @@ export default function JobDetailPage({ params }) {
             </div>
           </div>
 
-          {/* Description */}
           <div className="mb-8">
             <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Description</p>
             <div className="bg-slate-50 border border-slate-100 rounded-xl p-5 text-sm text-slate-700 leading-relaxed whitespace-pre-wrap">
@@ -187,10 +180,8 @@ export default function JobDetailPage({ params }) {
             </div>
           </div>
 
-          {/* Meta grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
 
-            {/* Job details */}
             <div className="sb-card p-5" style={{ boxShadow: "none" }}>
               <p className="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-3 flex items-center gap-1.5">
                 <HiOutlineInformationCircle className="w-3.5 h-3.5" />
@@ -204,7 +195,6 @@ export default function JobDetailPage({ params }) {
               />
             </div>
 
-            {/* Contact */}
             <div className="sb-card p-5" style={{ boxShadow: "none" }}>
               <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3 flex items-center gap-1.5">
                 <HiOutlineUser className="w-3.5 h-3.5" />
@@ -223,7 +213,6 @@ export default function JobDetailPage({ params }) {
           </div>
         </div>
 
-        {/* Danger zone — only owner sees it */}
         {isOwner && (
           <div className="px-7 sm:px-10 py-5 border-t border-slate-100 bg-slate-50/60 flex items-center justify-between gap-4">
             <div>

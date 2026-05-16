@@ -68,7 +68,6 @@ export default function NewJobPage() {
   return (
     <div className="max-w-2xl mx-auto sb-animate">
 
-      {/* Back link */}
       <Link
         href="/"
         className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors mb-6"
@@ -77,20 +76,16 @@ export default function NewJobPage() {
         Back to Jobs
       </Link>
 
-      {/* Card */}
       <div className="sb-card overflow-hidden">
 
-        {/* Top accent */}
         <div className="h-1 bg-gradient-to-r from-indigo-500 via-violet-500 to-blue-500" />
 
         <div className="p-7 sm:p-10">
-          {/* Heading */}
           <div className="mb-8">
             <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Post a Request</h1>
             <p className="mt-1 text-sm text-slate-500">Fill in the details so tradespeople can find your job.</p>
           </div>
 
-          {/* Error */}
           {error && (
             <div className="mb-6 flex items-start gap-3 p-4 bg-red-50 border border-red-100 rounded-xl text-red-700 text-sm">
               <HiOutlineExclamationCircle className="w-5 h-5 shrink-0 mt-0.5 text-red-400" />
@@ -100,7 +95,6 @@ export default function NewJobPage() {
 
           <form onSubmit={handleSubmit} className="space-y-6">
 
-            {/* Title */}
             <Field label="Job Title" required>
               <input
                 type="text" name="title" required
@@ -110,7 +104,6 @@ export default function NewJobPage() {
               />
             </Field>
 
-            {/* Description */}
             <Field label="Description" required>
               <textarea
                 name="description" required rows={4}
@@ -120,7 +113,6 @@ export default function NewJobPage() {
               />
             </Field>
 
-            {/* Category + Location */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <Field label="Category" required>
                 <div className="relative">
@@ -148,7 +140,6 @@ export default function NewJobPage() {
               </Field>
             </div>
 
-            {/* Contact section */}
             <div className="pt-5 border-t border-slate-100">
               <p className="text-xs font-bold text-slate-900 uppercase tracking-widest mb-4">Contact Information</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -171,7 +162,6 @@ export default function NewJobPage() {
               </div>
             </div>
 
-            {/* Submit */}
             <div className="pt-2 flex justify-end">
               <button type="submit" disabled={loading} className="sb-btn-primary px-8">
                 {loading ? (

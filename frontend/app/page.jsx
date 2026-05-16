@@ -53,7 +53,6 @@ export default function Home() {
   return (
     <div className="sb-animate">
 
-      {/* ── Page header ──────────────────────────────────── */}
       <div className="mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div>
           <p className="text-xs font-semibold text-indigo-600 tracking-widest uppercase mb-2">Service Board</p>
@@ -81,7 +80,6 @@ export default function Home() {
         )}
       </div>
 
-      {/* ── Filters ──────────────────────────────────────── */}
       <div className="sb-card p-4 mb-8">
         {/* Search */}
         <div className="relative mb-3">
@@ -97,7 +95,6 @@ export default function Home() {
           />
         </div>
 
-        {/* Category + Status + Clear */}
         <div className="flex flex-wrap gap-2 items-center">
           <div className="relative">
             <select
@@ -142,7 +139,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── Content ──────────────────────────────────────── */}
       {loading ? (
         <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {[...Array(6)].map((_, i) => (
