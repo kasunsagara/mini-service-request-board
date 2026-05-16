@@ -14,27 +14,32 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Mini Service Request Board",
-  description: "A sleek platform for homeowners and tradespeople",
+  title: "ServiceBoard — Find Trusted Tradespeople",
+  description: "Browse service requests posted by homeowners or list a new job to find trusted tradespeople.",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col bg-[#FAFAFA] text-slate-900 selection:bg-indigo-100 selection:text-indigo-900 relative">
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col bg-slate-50 text-slate-900">
         <AuthProvider>
-          {/* Subtle background decoration */}
-          <div className="absolute top-0 w-full h-[500px] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-100/40 via-white to-transparent -z-10 pointer-events-none"></div>
-          
           <Navbar />
           <main className="flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
             {children}
           </main>
+
+          {/* Footer */}
+          <footer className="mt-auto border-t border-slate-200 bg-white">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-2">
+              <span className="text-xs text-slate-400">
+                © {new Date().getFullYear()} <span className="font-semibold text-slate-600">ServiceBoard</span>. All rights reserved.
+              </span>
+              <span className="text-xs text-slate-400">Built with Next.js &amp; MongoDB</span>
+            </div>
+          </footer>
         </AuthProvider>
       </body>
     </html>
   );
 }
+

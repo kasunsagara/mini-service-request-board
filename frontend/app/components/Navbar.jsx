@@ -1,63 +1,131 @@
 "use client";
 
-import Link from 'next/link';
-import { useAuth } from '../context/AuthContext';
+import Link from "next/link";
+import { useAuth } from "../context/AuthContext";
+import { useState } from "react";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200/60 shadow-sm">
+    <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-sm">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
-          <div className="flex-shrink-0 flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-600 to-blue-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <div className="w-8 h-8 rounded-xl bg-indigo-600 flex items-center justify-center shadow-md shadow-indigo-500/30 group-hover:bg-indigo-700 transition-colors">
+              <svg className="w-4.5 h-4.5 text-white" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              </svg>
             </div>
-            <Link href="/" className="text-xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-indigo-700 to-blue-600 tracking-tight">
-              ServiceBoard
-            </Link>
-          </div>
-          <div className="flex items-center space-x-2 sm:space-x-4">
+            <span className="text-[1.05rem] font-extrabold text-slate-800 tracking-tight">
+              Service<span className="text-indigo-600">Board</span>
+            </span>
+          </Link>
+
+          {/* Desktop nav */}
+          <div className="hidden sm:flex items-center gap-1.5">
             <Link
               href="/"
-              className="text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 px-3 py-2 rounded-xl text-sm font-semibold transition-all duration-200"
+              className="px-3.5 py-2 text-sm font-medium text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all duration-150"
             >
               Browse Jobs
             </Link>
+
             {user ? (
               <>
                 <Link
                   href="/jobs/new"
-                  className="relative inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white transition-all duration-200 bg-gray-800 border border-transparent rounded-xl hover:bg-gray-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
+                  className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-lg transition-all duration-150"
                 >
-                  <span>Post Request</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
+                  </svg>
+                  Post Request
                 </Link>
-                <button
-                  onClick={logout}
-                  className="text-gray-600 hover:text-red-600 hover:bg-red-50 px-3 py-2 rounded-xl text-sm font-semibold transition-all duration-200"
-                >
-                  Logout
-                </button>
+
+                {/* User pill */}
+                <div className="flex items-center gap-2 ml-1 pl-3 border-l border-slate-200">
+                  <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">
+                    {user.username?.charAt(0).toUpperCase()}
+                  </div>
+                  <span className="text-sm font-medium text-slate-700 hidden md:block">{user.username}</span>
+                  <button
+                    onClick={logout}
+                    className="ml-1 px-3 py-1.5 text-xs font-semibold text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-lg border border-transparent hover:border-red-100 transition-all duration-150"
+                  >
+                    Logout
+                  </button>
+                </div>
               </>
             ) : (
               <>
                 <Link
                   href="/login"
-                  className="text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 px-3 py-2 rounded-xl text-sm font-semibold transition-all duration-200"
+                  className="px-4 py-2 text-sm font-semibold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all duration-150"
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/register"
-                  className="relative inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white transition-all duration-200 bg-indigo-600 border border-transparent rounded-xl hover:bg-indigo-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
+                  className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-sm shadow-indigo-500/25 transition-all duration-150 hover:-translate-y-px"
                 >
-                  <span>Sign Up</span>
+                  Sign Up
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
                 </Link>
               </>
             )}
           </div>
+
+          {/* Mobile hamburger */}
+          <button
+            className="sm:hidden p-2 rounded-lg text-slate-500 hover:bg-slate-100"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            {menuOpen ? (
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
+          </button>
         </div>
+
+        {/* Mobile menu */}
+        {menuOpen && (
+          <div className="sm:hidden border-t border-slate-100 py-3 flex flex-col gap-1">
+            <Link href="/" onClick={() => setMenuOpen(false)} className="px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-indigo-50 rounded-lg">
+              Browse Jobs
+            </Link>
+            {user ? (
+              <>
+                <Link href="/jobs/new" onClick={() => setMenuOpen(false)} className="px-3 py-2.5 text-sm font-semibold text-indigo-600 hover:bg-indigo-50 rounded-lg">
+                  + Post Request
+                </Link>
+                <div className="px-3 py-2 text-xs text-slate-400">Logged in as <span className="font-semibold text-slate-600">{user.username}</span></div>
+                <button onClick={() => { logout(); setMenuOpen(false); }} className="text-left px-3 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg">
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link href="/login" onClick={() => setMenuOpen(false)} className="px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-indigo-50 rounded-lg">
+                  Sign In
+                </Link>
+                <Link href="/register" onClick={() => setMenuOpen(false)} className="px-3 py-2.5 text-sm font-semibold text-indigo-600 hover:bg-indigo-50 rounded-lg">
+                  Sign Up
+                </Link>
+              </>
+            )}
+          </div>
+        )}
       </div>
     </nav>
   );

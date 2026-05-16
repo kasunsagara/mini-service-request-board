@@ -6,86 +6,84 @@ import Link from "next/link";
 
 export default function RegisterPage() {
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  const [email,    setEmail]    = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error,    setError]    = useState("");
+  const [loading,  setLoading]  = useState(false);
   const { register } = useAuth();
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-    setLoading(true);
-
+    setError(""); setLoading(true);
     const result = await register(username, email, password);
-    if (!result.success) {
-      setError(result.message);
-      setLoading(false);
-    }
+    if (!result.success) { setError(result.message); setLoading(false); }
   };
 
   return (
-    <div className="max-w-md mx-auto animate-in slide-in-from-bottom-4 duration-500 mt-10">
-      <div className="bg-white/80 backdrop-blur-xl p-8 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/40">
-        <h1 className="text-3xl font-extrabold text-gray-800 tracking-tight mb-2 text-center">Create an Account</h1>
-        <p className="text-slate-500 text-center mb-8">Sign up to post and manage your service requests.</p>
-        
-        {error && (
-          <div className="mb-6 bg-red-50 border-l-4 border-red-500 text-red-700 p-3 rounded-r-lg text-sm">
-            {error}
-          </div>
-        )}
+    <div className="min-h-[80vh] flex items-center justify-center px-4 sb-animate">
+      <div className="w-full max-w-md">
 
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1">Username</label>
-            <input
-              type="text"
-              required
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
-              placeholder="johndoe"
-            />
+        {/* Logo mark */}
+        <div className="flex justify-center mb-8">
+          <div className="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
           </div>
-          <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1">Email</label>
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
-              placeholder="you@example.com"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1">Password</label>
-            <input
-              type="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
-              placeholder="••••••••"
-            />
-          </div>
-          
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-gray-800 text-white py-3 rounded-xl font-semibold hover:bg-gray-700 transition-colors mt-4 disabled:opacity-70"
-          >
-            {loading ? "Creating account..." : "Sign Up"}
-          </button>
-        </form>
+        </div>
 
-        <p className="mt-6 text-center text-sm text-slate-500">
-          Already have an account?{" "}
-          <Link href="/login" className="font-semibold text-indigo-600 hover:text-indigo-800">
-            Sign in
-          </Link>
-        </p>
+        <div className="sb-card p-8 sm:p-10">
+          <div className="text-center mb-8">
+            <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Create an account</h1>
+            <p className="mt-1.5 text-sm text-slate-500">Sign up to post and manage service requests.</p>
+          </div>
+
+          {error && (
+            <div className="mb-6 flex items-start gap-2.5 p-3.5 bg-red-50 border border-red-100 rounded-xl text-sm text-red-700">
+              <svg className="w-4 h-4 shrink-0 mt-0.5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="font-medium">{error}</span>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div>
+              <label className="sb-label">Username</label>
+              <input type="text" required value={username} onChange={(e) => setUsername(e.target.value)}
+                className="sb-input" placeholder="johndoe" />
+            </div>
+            <div>
+              <label className="sb-label">Email address</label>
+              <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
+                className="sb-input" placeholder="you@example.com" />
+            </div>
+            <div>
+              <label className="sb-label">Password</label>
+              <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)}
+                className="sb-input" placeholder="Min. 8 characters" />
+            </div>
+
+            <button type="submit" disabled={loading} className="sb-btn-primary w-full mt-2">
+              {loading ? (
+                <>
+                  <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                  Creating account…
+                </>
+              ) : "Create Account"}
+            </button>
+          </form>
+
+          <p className="mt-6 text-center text-sm text-slate-500">
+            Already have an account?{" "}
+            <Link href="/login" className="font-semibold text-indigo-600 hover:text-indigo-800 transition-colors">
+              Sign in
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

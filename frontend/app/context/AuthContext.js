@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("userInfo");
-    router.push("/login");
+    router.push("/");
   };
 
   return (
