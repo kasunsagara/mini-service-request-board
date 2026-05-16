@@ -3,6 +3,7 @@
 import { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { toast } from "react-hot-toast";
 import { useAuth } from "../../context/AuthContext";
 import { HiArrowLeft, HiChevronDown, HiOutlineExclamationTriangle, HiOutlineInformationCircle, HiOutlineUser, HiOutlineTrash } from "react-icons/hi2";
 
@@ -103,9 +104,10 @@ export default function JobDetailPage({ params }) {
         const d = await res.json();
         throw new Error(d.message || "Failed to delete.");
       }
+      toast.success("Request deleted successfully.");
       router.push("/");
     } catch (err) {
-      alert(err.message);
+      toast.error(err.message);
       setDeleting(false);
     }
   };
