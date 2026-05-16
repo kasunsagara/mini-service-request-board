@@ -23,7 +23,7 @@ export default function JobCard({ job }) {
 
   return (
     <div className="group relative bg-white/70 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-100 p-6 hover:-translate-y-1.5 hover:shadow-xl hover:bg-white hover:border-indigo-100 transition-all duration-300 flex flex-col h-full overflow-hidden">
-      {/* Decorative top gradient */}
+
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-blue-500 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       
       <div className="flex justify-between items-start mb-4 gap-3">

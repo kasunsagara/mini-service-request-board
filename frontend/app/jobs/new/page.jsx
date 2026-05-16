@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useAuth } from "../../context/AuthContext";
 
 export default function NewJobPage() {
   const router = useRouter();
@@ -16,6 +17,15 @@ export default function NewJobPage() {
   });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    }
+  }, [user, router]);
+
+  if (!user) return null;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,7 +40,10 @@ export default function NewJobPage() {
     try {
       const res = await fetch("http://localhost:5000/api/jobs", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${user.token}`
+        },
         body: JSON.stringify(formData),
       });
 

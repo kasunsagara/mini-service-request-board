@@ -3,6 +3,7 @@
 import { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useAuth } from "../../../context/AuthContext";
 
 export default function JobDetailPage({ params }) {
   const unwrappedParams = use(params);
@@ -14,6 +15,7 @@ export default function JobDetailPage({ params }) {
   const [error, setError] = useState(null);
   const [updating, setUpdating] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     fetchJob();
@@ -62,8 +64,14 @@ export default function JobDetailPage({ params }) {
     try {
       const res = await fetch(`http://localhost:5000/api/jobs/${id}`, {
         method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${user.token}`
+        }
       });
-      if (!res.ok) throw new Error("Failed to delete job.");
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || "Failed to delete job.");
+      }
       
       router.push("/");
     } catch (err) {
@@ -192,17 +200,19 @@ export default function JobDetailPage({ params }) {
           </div>
         </div>
 
-        <div className="bg-red-50/30 px-8 py-5 border-t border-red-50 flex items-center justify-between">
-          <p className="text-xs font-medium text-red-500/70">Danger Zone</p>
-          <button
-            onClick={handleDelete}
-            disabled={deleting}
-            className="group flex items-center gap-2 text-red-600 hover:text-white font-semibold text-sm px-5 py-2.5 border border-red-200 rounded-xl hover:bg-red-600 hover:border-red-600 transition-all shadow-sm hover:shadow-md hover:shadow-red-500/20 disabled:opacity-50"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-            {deleting ? "Deleting..." : "Delete Request"}
-          </button>
-        </div>
+        {user && job.user === user._id && (
+          <div className="bg-red-50/30 px-8 py-5 border-t border-red-50 flex items-center justify-between">
+            <p className="text-xs font-medium text-red-500/70">Danger Zone</p>
+            <button
+              onClick={handleDelete}
+              disabled={deleting}
+              className="group flex items-center gap-2 text-red-600 hover:text-white font-semibold text-sm px-5 py-2.5 border border-red-200 rounded-xl hover:bg-red-600 hover:border-red-600 transition-all shadow-sm hover:shadow-md hover:shadow-red-500/20 disabled:opacity-50"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+              {deleting ? "Deleting..." : "Delete Request"}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

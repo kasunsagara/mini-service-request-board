@@ -9,10 +9,11 @@ export default function Home() {
   const [error, setError] = useState(null);
   const [category, setCategory] = useState("");
   const [status, setStatus] = useState("");
+  const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
     fetchJobs();
-  }, [category, status]);
+  }, [category, status, keyword]);
 
   const fetchJobs = async () => {
     setLoading(true);
@@ -21,6 +22,7 @@ export default function Home() {
       const params = new URLSearchParams();
       if (category) params.append("category", category);
       if (status) params.append("status", status);
+      if (keyword) params.append("keyword", keyword);
       
       if (params.toString()) {
         url += `?${params.toString()}`;
@@ -84,6 +86,21 @@ export default function Home() {
           </div>
         </div>
       </div>
+      
+      <div className="mb-8 max-w-2xl">
+        <div className="relative">
+          <input
+            type="text"
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
+            placeholder="Search by title or description..."
+            className="w-full bg-white border border-gray-200 rounded-xl pl-11 pr-4 py-3 text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-colors shadow-sm"
+          />
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          </div>
+        </div>
+      </div>
 
       {loading ? (
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
@@ -108,7 +125,7 @@ export default function Home() {
           </div>
           <h3 className="text-lg font-bold text-gray-900 mb-1">No requests found</h3>
           <p className="text-gray-500 mb-6">Try adjusting your filters or create a new request.</p>
-          <button onClick={() => {setCategory(''); setStatus('');}} className="text-sm font-semibold text-indigo-600 hover:text-indigo-700 bg-indigo-50 px-4 py-2 rounded-lg transition-colors">
+          <button onClick={() => {setCategory(''); setStatus(''); setKeyword('');}} className="text-sm font-semibold text-indigo-600 hover:text-indigo-700 bg-indigo-50 px-4 py-2 rounded-lg transition-colors">
             Clear Filters
           </button>
         </div>

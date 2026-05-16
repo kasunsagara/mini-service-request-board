@@ -1,15 +1,22 @@
-import JobRequest from "../models/JobRequest.js";
+import JobRequest from "../models/jobRequest.js";
 
 export async function getJobs(req, res, next) {
   try {
-    const { category, status } = req.query;
+    const { category, status, keyword } = req.query;
 
     let filter = {};
 
     if (category) filter.category = category;
     if (status) filter.status = status;
+    
+    if (keyword) {
+      filter.$or = [
+        { title: { $regex: keyword, $options: "i" } },
+        { description: { $regex: keyword, $options: "i" } },
+      ];
+    }
 
-    const jobs = await JobRequest.find(filter);
+    const jobs = await JobRequest.find(filter).sort({ createdAt: -1 });
 
     res.status(200).json({
       success: true,
@@ -52,7 +59,12 @@ export async function createJob(req, res, next) {
       });
     }
 
-    const job = await JobRequest.create(req.body);
+    const jobData = {
+      ...req.body,
+      user: req.user._id,
+    };
+
+    const job = await JobRequest.create(jobData);
 
     res.status(201).json({
       success: true,
@@ -100,7 +112,7 @@ export async function updateJobStatus(req, res, next) {
 
 export async function deleteJob(req, res, next) {
   try {
-    const job = await JobRequest.findByIdAndDelete(req.params.id);
+    const job = await JobRequest.findById(req.params.id);
 
     if (!job) {
       return res.status(404).json({
@@ -108,6 +120,15 @@ export async function deleteJob(req, res, next) {
         message: "Job not found",
       });
     }
+
+    if (job.user.toString() !== req.user._id.toString()) {
+      return res.status(401).json({
+        success: false,
+        message: "Not authorized to delete this job request",
+      });
+    }
+
+    await JobRequest.findByIdAndDelete(req.params.id);
 
     res.status(200).json({
       success: true,
