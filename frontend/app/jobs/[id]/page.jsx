@@ -38,7 +38,7 @@ export default function JobDetailPage({ params }) {
 
   const fetchJob = async () => {
     try {
-      const res  = await fetch(`${process.env.NEXT_BACKEND_URL}/api/jobs/${id}`);
+      const res  = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/jobs/${id}`);
       if (!res.ok) {
         throw new Error(res.status === 404 ? "Request not found." : "Failed to load details.");
       }
@@ -54,7 +54,7 @@ export default function JobDetailPage({ params }) {
   useEffect(() => {
     const loadJob = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_BACKEND_URL}/api/jobs/${id}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/jobs/${id}`);
         if (!res.ok) {
           throw new Error(res.status === 404 ? "Request not found." : "Failed to load details.");
         }
@@ -76,7 +76,7 @@ export default function JobDetailPage({ params }) {
     setJob((prev) => ({ ...prev, status: newStatus }));
     setUpdating(true);
     try {
-      const res = await fetch(`${process.env.NEXT_BACKEND_URL}/api/jobs/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/jobs/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: newStatus }),
@@ -96,7 +96,7 @@ export default function JobDetailPage({ params }) {
     if (!confirm("Permanently delete this request? This cannot be undone.")) return;
     setDeleting(true);
     try {
-      const res = await fetch(`${process.env.NEXT_BACKEND_URL}/api/jobs/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/jobs/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${user.token}` },
       });

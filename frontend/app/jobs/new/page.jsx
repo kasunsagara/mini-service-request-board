@@ -46,7 +46,7 @@ export default function NewJobPage() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`${process.env.NEXT_BACKEND_URL}/api/jobs`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/jobs`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

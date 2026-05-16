@@ -27,7 +27,7 @@ export default function Home() {
       if (status)   params.append("status",   status);
       if (keyword)  params.append("keyword",  keyword);
 
-      const url = `${process.env.NEXT_BACKEND_URL}/api/jobs${params.toString() ? `?${params}` : ""}`;
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/api/jobs${params.toString() ? `?${params}` : ""}`;
       const res  = await fetch(url);
       if (!res.ok) throw new Error("Failed to fetch jobs");
       const data = await res.json();
