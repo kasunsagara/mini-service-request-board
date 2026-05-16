@@ -53,7 +53,6 @@ export default function Home() {
   return (
     <div className="sb-animate">
 
-      {/* ── Page header ──────────────────────────────────── */}
       <div className="mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div>
           <p className="text-xs font-semibold text-indigo-600 tracking-widest uppercase mb-2">Service Board</p>
@@ -81,9 +80,7 @@ export default function Home() {
         )}
       </div>
 
-      {/* ── Filters ──────────────────────────────────────── */}
       <div className="sb-card p-4 mb-8">
-        {/* Search */}
         <div className="relative mb-4">
           <span className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
             <HiOutlineMagnifyingGlass className="w-4 h-4" />
@@ -106,7 +103,6 @@ export default function Home() {
           )}
         </div>
 
-        {/* Category + Status + Clear */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 items-end">
           <div className="relative">
             <select
@@ -143,14 +139,10 @@ export default function Home() {
                 Clear
               </button>
             )}
-            <span className="text-xs text-slate-400 font-medium hidden sm:inline">
-              {loading ? "Loading…" : `${jobs.length} result${jobs.length !== 1 ? "s" : ""}`}
-            </span>
           </div>
         </div>
       </div>
 
-      {/* ── Content ──────────────────────────────────────── */}
       {loading ? (
         <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {[...Array(6)].map((_, i) => (
