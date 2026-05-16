@@ -52,9 +52,7 @@ export const AuthProvider = ({ children }) => {
     const data = await res.json();
 
     if (res.ok) {
-      setUser(data.data);
-      localStorage.setItem("userInfo", JSON.stringify(data.data));
-      router.push("/");
+      router.push("/login");
       return { success: true };
     } else {
       return { success: false, message: data.message };
