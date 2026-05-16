@@ -11,12 +11,15 @@ export const AuthProvider = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    // Check if user is logged in
-    const storedUser = localStorage.getItem("userInfo");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-    setLoading(false);
+    const loadStoredUser = () => {
+      const storedUser = localStorage.getItem("userInfo");
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+      setLoading(false);
+    };
+
+    loadStoredUser();
   }, []);
 
   const login = async (email, password) => {

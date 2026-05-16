@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "../../context/AuthContext";
+import { HiArrowLeft, HiArrowPath, HiArrowRight, HiChevronDown, HiOutlineExclamationCircle } from "react-icons/hi2";
 
 const CATEGORIES = ["Plumbing", "Electrical", "Painting", "Joinery"];
 
@@ -72,9 +73,7 @@ export default function NewJobPage() {
         href="/"
         className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors mb-6"
       >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-        </svg>
+        <HiArrowLeft className="w-4 h-4" />
         Back to Jobs
       </Link>
 
@@ -94,9 +93,7 @@ export default function NewJobPage() {
           {/* Error */}
           {error && (
             <div className="mb-6 flex items-start gap-3 p-4 bg-red-50 border border-red-100 rounded-xl text-red-700 text-sm">
-              <svg className="w-5 h-5 shrink-0 mt-0.5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+              <HiOutlineExclamationCircle className="w-5 h-5 shrink-0 mt-0.5 text-red-400" />
               <span className="font-medium">{error}</span>
             </div>
           )}
@@ -136,9 +133,7 @@ export default function NewJobPage() {
                     {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
                   </select>
                   <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                    </svg>
+                    <HiChevronDown className="w-4 h-4" />
                   </span>
                 </div>
               </Field>
@@ -181,18 +176,13 @@ export default function NewJobPage() {
               <button type="submit" disabled={loading} className="sb-btn-primary px-8">
                 {loading ? (
                   <>
-                    <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                    </svg>
+                    <HiArrowPath className="animate-spin w-4 h-4" />
                     Posting…
                   </>
                 ) : (
                   <>
                     Post Request
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
+                    <HiArrowRight className="w-4 h-4" />
                   </>
                 )}
               </button>

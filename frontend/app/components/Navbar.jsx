@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
+import { HiArrowRight, HiBars3, HiOutlineBriefcase, HiPlus, HiXMark } from "react-icons/hi2";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -16,9 +17,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
             <div className="w-8 h-8 rounded-xl bg-indigo-600 flex items-center justify-center shadow-md shadow-indigo-500/30 group-hover:bg-indigo-700 transition-colors">
-              <svg className="w-4.5 h-4.5 text-white" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-              </svg>
+              <HiOutlineBriefcase className="w-4.5 h-4.5 text-white" />
             </div>
             <span className="text-[1.05rem] font-extrabold text-slate-800 tracking-tight">
               Service<span className="text-indigo-600">Board</span>
@@ -40,9 +39,7 @@ export default function Navbar() {
                   href="/jobs/new"
                   className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-lg transition-all duration-150"
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
-                  </svg>
+                  <HiPlus className="w-4 h-4" />
                   Post Request
                 </Link>
 
@@ -73,9 +70,7 @@ export default function Navbar() {
                   className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-sm shadow-indigo-500/25 transition-all duration-150 hover:-translate-y-px"
                 >
                   Sign Up
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
+                  <HiArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </>
             )}
@@ -87,13 +82,9 @@ export default function Navbar() {
             onClick={() => setMenuOpen(!menuOpen)}
           >
             {menuOpen ? (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
+              <HiXMark className="w-5 h-5" />
             ) : (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
+              <HiBars3 className="w-5 h-5" />
             )}
           </button>
         </div>

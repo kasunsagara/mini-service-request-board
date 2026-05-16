@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import JobCard from "./components/JobCard";
 import Link from "next/link";
 import { useAuth } from "./context/AuthContext";
+import { HiChevronDown, HiOutlineExclamationCircle, HiOutlineFaceSmile, HiOutlineMagnifyingGlass, HiPlus, HiXMark } from "react-icons/hi2";
 
 const CATEGORIES = ["Plumbing", "Electrical", "Painting", "Joinery"];
 const STATUSES   = ["Open", "In Progress", "Closed"];
@@ -38,7 +39,13 @@ export default function Home() {
     }
   }, [category, status, keyword]);
 
-  useEffect(() => { fetchJobs(); }, [fetchJobs]);
+  useEffect(() => {
+    const loadJobs = async () => {
+      await fetchJobs();
+    };
+
+    loadJobs();
+  }, [fetchJobs]);
 
   const clearFilters = () => { setCategory(""); setStatus(""); setKeyword(""); };
   const hasFilters   = category || status || keyword;
@@ -68,9 +75,7 @@ export default function Home() {
             href="/jobs/new"
             className="self-start sm:self-auto sb-btn-primary shrink-0"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
-            </svg>
+            <HiPlus className="w-4 h-4" />
             Post a Request
           </Link>
         )}
@@ -81,9 +86,7 @@ export default function Home() {
         {/* Search */}
         <div className="relative mb-3">
           <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
+            <HiOutlineMagnifyingGlass className="w-4 h-4" />
           </span>
           <input
             type="text"
@@ -107,9 +110,7 @@ export default function Home() {
               {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
             </select>
             <span className="pointer-events-none absolute inset-y-0 right-2 flex items-center text-slate-400">
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
-              </svg>
+              <HiChevronDown className="w-3.5 h-3.5" />
             </span>
           </div>
 
@@ -124,17 +125,13 @@ export default function Home() {
               {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
             </select>
             <span className="pointer-events-none absolute inset-y-0 right-2 flex items-center text-slate-400">
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
-              </svg>
+              <HiChevronDown className="w-3.5 h-3.5" />
             </span>
           </div>
 
           {hasFilters && (
             <button onClick={clearFilters} className="sb-btn-ghost text-sm py-2 px-3">
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
+              <HiXMark className="w-3.5 h-3.5" />
               Clear
             </button>
           )}
@@ -160,9 +157,7 @@ export default function Home() {
       ) : error ? (
         <div className="sb-card p-10 text-center border-red-100">
           <div className="w-12 h-12 mx-auto rounded-full bg-red-50 flex items-center justify-center mb-4">
-            <svg className="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
+            <HiOutlineExclamationCircle className="w-6 h-6 text-red-400" />
           </div>
           <p className="text-sm font-semibold text-red-600 mb-1">Something went wrong</p>
           <p className="text-xs text-slate-400 mb-5">{error}</p>
@@ -171,9 +166,7 @@ export default function Home() {
       ) : jobs.length === 0 ? (
         <div className="sb-card p-14 text-center border-dashed border-slate-200">
           <div className="w-14 h-14 mx-auto rounded-2xl bg-indigo-50 flex items-center justify-center mb-5">
-            <svg className="w-7 h-7 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
+            <HiOutlineFaceSmile className="w-7 h-7 text-indigo-400" />
           </div>
           <h3 className="text-base font-bold text-slate-800 mb-1">No requests found</h3>
           <p className="text-sm text-slate-400 mb-6">Try adjusting your filters or search term.</p>
