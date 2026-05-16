@@ -34,7 +34,6 @@ export default function RootLayout({ children }) {
               <span className="text-xs text-slate-400">
                 © {new Date().getFullYear()} <span className="font-semibold text-slate-600">ServiceBoard</span>. All rights reserved.
               </span>
-              <span className="text-xs text-slate-400">Built with Next.js &amp; MongoDB</span>
             </div>
           </footer>
         </AuthProvider>

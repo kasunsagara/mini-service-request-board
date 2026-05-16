@@ -19,11 +19,19 @@ export async function registerUser(req, res, next) {
     }
 
     const userExists = await User.findOne({ email });
+    const usernameExists = await User.findOne({ username });
 
     if (userExists) {
       return res.status(400).json({
         success: false,
-        message: "User already exists",
+        message: "Email already in use",
+      });
+    }
+
+    if (usernameExists) {
+      return res.status(400).json({
+        success: false,
+        message: "Username already taken",
       });
     }
 
@@ -50,6 +58,13 @@ export async function registerUser(req, res, next) {
       });
     }
   } catch (error) {
+    if (error.code === 11000) {
+      const field = Object.keys(error.keyPattern || {})[0];
+      return res.status(400).json({
+        success: false,
+        message: field === "username" ? "Username already taken" : "Email already in use",
+      });
+    }
     next(error);
   }
 }
