@@ -53,6 +53,7 @@ export default function Home() {
   return (
     <div className="sb-animate">
 
+      {/* ── Page header ──────────────────────────────────── */}
       <div className="mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div>
           <p className="text-xs font-semibold text-indigo-600 tracking-widest uppercase mb-2">Service Board</p>
@@ -80,28 +81,38 @@ export default function Home() {
         )}
       </div>
 
+      {/* ── Filters ──────────────────────────────────────── */}
       <div className="sb-card p-4 mb-8">
         {/* Search */}
-        <div className="relative mb-3">
-          <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+        <div className="relative mb-4">
+          <span className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
             <HiOutlineMagnifyingGlass className="w-4 h-4" />
           </span>
           <input
             type="text"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
-            placeholder="Search by title or description…"
-            className="sb-input pl-10"
+            placeholder="     Search by title or description…"
+            className="sb-input pl-12 pr-10"
           />
+          {keyword && (
+            <button
+              onClick={() => setKeyword("")}
+              aria-label="Clear search"
+              className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600"
+            >
+              <HiXMark className="w-4 h-4" />
+            </button>
+          )}
         </div>
 
-        <div className="flex flex-wrap gap-2 items-center">
+        {/* Category + Status + Clear */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 items-end">
           <div className="relative">
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="sb-input pr-8 appearance-none text-sm py-2 px-3 cursor-pointer"
-              style={{ width: "auto" }}
+              className="sb-input pr-8 appearance-none text-sm py-2 px-3 cursor-pointer w-full"
             >
               <option value="">All Categories</option>
               {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
@@ -115,8 +126,7 @@ export default function Home() {
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value)}
-              className="sb-input pr-8 appearance-none text-sm py-2 px-3 cursor-pointer"
-              style={{ width: "auto" }}
+              className="sb-input pr-8 appearance-none text-sm py-2 px-3 cursor-pointer w-full"
             >
               <option value="">All Statuses</option>
               {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
@@ -126,19 +136,21 @@ export default function Home() {
             </span>
           </div>
 
-          {hasFilters && (
-            <button onClick={clearFilters} className="sb-btn-ghost text-sm py-2 px-3">
-              <HiXMark className="w-3.5 h-3.5" />
-              Clear
-            </button>
-          )}
-
-          <span className="ml-auto text-xs text-slate-400 font-medium hidden sm:block">
-            {loading ? "Loading…" : `${jobs.length} result${jobs.length !== 1 ? "s" : ""}`}
-          </span>
+          <div className="flex justify-end items-center gap-2">
+            {hasFilters && (
+              <button onClick={clearFilters} className="sb-btn-ghost text-sm py-2 px-3">
+                <HiXMark className="w-3.5 h-3.5" />
+                Clear
+              </button>
+            )}
+            <span className="text-xs text-slate-400 font-medium hidden sm:inline">
+              {loading ? "Loading…" : `${jobs.length} result${jobs.length !== 1 ? "s" : ""}`}
+            </span>
+          </div>
         </div>
       </div>
 
+      {/* ── Content ──────────────────────────────────────── */}
       {loading ? (
         <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {[...Array(6)].map((_, i) => (
