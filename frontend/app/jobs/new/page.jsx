@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { toast } from "react-hot-toast";
 import { useAuth } from "../../context/AuthContext";
 import { HiArrowLeft, HiArrowPath, HiArrowRight, HiChevronDown, HiOutlineExclamationCircle } from "react-icons/hi2";
 
@@ -58,6 +59,7 @@ export default function NewJobPage() {
         const d = await res.json();
         throw new Error(d.message || "Failed to create request");
       }
+      toast.success("Request posted successfully.");
       router.push("/");
     } catch (err) {
       setError(err.message);
