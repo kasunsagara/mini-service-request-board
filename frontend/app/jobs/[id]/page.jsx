@@ -83,8 +83,9 @@ export default function JobDetailPage({ params }) {
       if (!res.ok) throw new Error("Failed to update status.");
       const data = await res.json();
       setJob(data.data ?? data);
+      toast.success("Status updated successfully.");
     } catch (err) {
-      alert(err.message);
+      toast.error(err.message);
       fetchJob(); 
     } finally {
       setUpdating(false);
