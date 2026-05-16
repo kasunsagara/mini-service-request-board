@@ -2,6 +2,7 @@
 
 import { createContext, useState, useEffect, useContext } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
 
 const AuthContext = createContext();
 
@@ -36,9 +37,11 @@ export const AuthProvider = ({ children }) => {
     if (res.ok) {
       setUser(data.data);
       localStorage.setItem("userInfo", JSON.stringify(data.data));
+      toast.success("Signed in successfully.");
       router.push("/");
       return { success: true };
     } else {
+      toast.error(data.message);
       return { success: false, message: data.message };
     }
   };
@@ -55,9 +58,11 @@ export const AuthProvider = ({ children }) => {
     const data = await res.json();
 
     if (res.ok) {
+      toast.success("Account created successfully. Please sign in.");
       router.push("/login");
       return { success: true };
     } else {
+      toast.error(data.message);
       return { success: false, message: data.message };
     }
   };
@@ -65,6 +70,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("userInfo");
+    toast.success("Logged out successfully.");
     router.push("/");
   };
 

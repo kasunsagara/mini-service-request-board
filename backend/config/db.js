@@ -5,10 +5,9 @@ export const connectDB = async () => {
     const conn = await mongoose.connect(process.env.MONGO_URI, {
       serverSelectionTimeoutMS: 8000,
     });
-    console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
+    console.log("MongoDB Connected");
   } catch (err) {
-    console.error("❌ MongoDB connection failed:", err.message);
-    console.error("   → Make sure your IP is whitelisted in MongoDB Atlas.");
+    console.error("MongoDB connection failed:", err.message);
     process.exit(1);
   }
-};
+};
