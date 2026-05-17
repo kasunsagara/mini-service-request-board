@@ -68,7 +68,6 @@ Create `backend/.env` with:
 ```env
 MONGO_URI=mongodb://localhost:27017/service-board
 JWT_SECRET=your_jwt_secret
-PORT=5000
 ```
 
 Start the backend:
@@ -86,8 +85,14 @@ npm install
 
 Create `frontend/.env.local` with:
 
+**For local development:**
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:5000
+```
+
+**For production (deployed to Vercel):**
+```env
+NEXT_PUBLIC_API_URL=https://your-render-backend-url.onrender.com
 ```
 
 Start the frontend:
@@ -153,16 +158,17 @@ npm run dev
 
 ## Notes
 
-- The frontend stores auth state in `localStorage` under `userInfo`.
 - Job status values are `Open`, `In Progress`, and `Closed`.
+- Supported job categories: Plumbing, Electrical, Painting, Joinery.
 - Requests include category, location, contact name, and contact email.
+- Search filters use case-insensitive regex matching on title and description.
+- Only the request owner can delete their own job request.
 - Validation is performed on both backend and frontend.
 
 ## Deployment
 
 - Frontend is deployable to Vercel.
-- Backend can be deployed anywhere Node.js and MongoDB are supported.
-- Set `NEXT_PUBLIC_API_URL` to your deployed backend URL for production.
+- Backend is deployable to Render.
 
 ---
 
