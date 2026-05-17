@@ -1,101 +1,102 @@
-# Mini Service Request Board
+﻿# Mini Service Request Board
 
-A small full-stack service request board built with:
-- Frontend: Next.js App Router
-- Backend: Node.js + Express
-- Database: MongoDB + Mongoose
-- Auth: JWT-based login/register
-- Styling: Tailwind CSS
+A service request board built as a full-stack developer technical assessment project.
+It includes a Next.js frontend, an Express backend, MongoDB persistence, JWT authentication, and a clean UI for browsing, filtering, posting, updating, and deleting service requests.
 
 ## Live Demo
 
-Check out the live application: [https://service-board-ten.vercel.app/](https://service-board-ten.vercel.app/)
+- https://service-board-ten.vercel.app/
 
-## Project structure
+## Features
 
-- `backend/` — Express API server, MongoDB connection, auth, and job endpoints
-- `frontend/` — Next.js application that consumes the backend API
+- Browse all posted service requests
+- Filter by category and status
+- Search requests by title or description
+- View detailed request information
+- Register and sign in with JWT authentication
+- Create new service requests with contact information
+- Update request status to Open / In Progress / Closed
+- Delete requests only by the authenticated owner
+- Responsive UI with Tailwind CSS and React icons
+
+## Tech Stack
+
+- Frontend: Next.js App Router, React 19, Tailwind CSS v4
+- Backend: Node.js, Express 5, MongoDB, Mongoose
+- Auth: JWT, bcryptjs
+- Notifications: react-hot-toast
+
+## Repository Structure
+
+- `backend/` — Express API server, auth and job endpoints, MongoDB models
+- `frontend/` — Next.js application, pages, components, and auth context
+
+## Backend Summary
+
+- `backend/server.js` — app bootstrapping, middleware, route registration
+- `backend/config/db.js` — MongoDB connection
+- `backend/routes/authRouter.js` — `/api/auth/register`, `/api/auth/login`
+- `backend/routes/jobRouter.js` — `/api/jobs`, `/api/jobs/:id`
+- `backend/controllers/authController.js` — register and login logic
+- `backend/controllers/jobController.js` — fetch, create, update, delete job requests
+- `backend/models/User.js` — user schema, password hashing, password validation
+- `backend/models/jobRequest.js` — service request schema, status enum, timestamps
+- `backend/middleware/authMiddleware.js` — JWT auth middleware
+- `backend/middleware/errorMiddleware.js` — centralized error handling
+
+## Frontend Summary
+
+- `frontend/app/page.jsx` — homepage with search and filter controls
+- `frontend/app/jobs/new/page.jsx` — authenticated request creation form
+- `frontend/app/jobs/[id]/page.jsx` — detail page with status update and delete action
+- `frontend/app/login/page.jsx` — sign-in form
+- `frontend/app/register/page.jsx` — sign-up form
+- `frontend/app/context/AuthContext.js` — auth state, login/register/logout, localStorage persistence
+- `frontend/app/components/JobCard.jsx` — request preview card
 
 ## Setup
 
-### 1. Backend setup
-
-1. Open a terminal and go to the backend folder:
+### Backend
 
 ```bash
 cd backend
-```
-
-2. Install backend dependencies:
-
-```bash
 npm install
 ```
 
-3. Create a backend environment file:
+Create `backend/.env` with:
 
-```bash
-copy .env.example .env
+```env
+MONGO_URI=mongodb://localhost:27017/service-board
+JWT_SECRET=your_jwt_secret
+PORT=5000
 ```
 
-4. Set the required backend environment variables in `backend/.env`:
-
-- `MONGO_URI` — MongoDB connection string
-- `JWT_SECRET` — secret for signing JWT tokens
-- `PORT` — optional, defaults to `5000`
-
-5. Start the backend server:
+Start the backend:
 
 ```bash
 npm start
 ```
 
-### 2. Frontend setup
-
-1. Open a second terminal and go to the frontend folder:
+### Frontend
 
 ```bash
 cd frontend
-```
-
-2. Install frontend dependencies:
-
-```bash
 npm install
 ```
 
-3. Create a frontend environment file:
-
-```bash
-# On Windows PowerShell
-New-Item -Path .env.local -ItemType File -Force
-```
-
-4. Set the required frontend environment variable in `frontend/.env.local`:
+Create `frontend/.env.local` with:
 
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:5000
 ```
 
-5. Start the frontend app:
+Start the frontend:
 
 ```bash
 npm run dev
 ```
 
-## Required environment variables
-
-### Backend
-
-- `MONGO_URI` — MongoDB connection string, for example `mongodb://localhost:27017/mydb`
-- `JWT_SECRET` — secret key used by the backend to sign JSON Web Tokens
-- `PORT` — optional server port, default is `5000`
-
-### Frontend
-
-- `NEXT_PUBLIC_API_URL` — full URL of the backend API, for example `http://localhost:5000`
-
-## Run instructions
+## Run Commands
 
 ### Run backend only
 
@@ -113,26 +114,56 @@ npm run dev
 
 ### Run both together
 
-1. Start the backend in one terminal:
+1. In terminal 1:
 
 ```bash
 cd backend
 npm start
 ```
 
-2. Start the frontend in another terminal:
+2. In terminal 2:
 
 ```bash
 cd frontend
 npm run dev
 ```
 
-## API overview
+## API Endpoints
 
-- `GET /api/jobs` — fetch job requests
-- `GET /api/jobs/:id` — fetch a single job request
-- `POST /api/jobs` — create a new job request (authenticated)
-- `PATCH /api/jobs/:id` — update job status
-- `DELETE /api/jobs/:id` — delete a job request (authenticated + owner)
-- `POST /api/auth/register` — register a new user
-- `POST /api/auth/login` — login and receive a JWT token
+### Auth
+
+- `POST /api/auth/register`
+  - body: `{ username, email, password }`
+- `POST /api/auth/login`
+  - body: `{ email, password }`
+
+### Jobs
+
+- `GET /api/jobs`
+  - optional query params: `category`, `status`, `keyword`
+- `GET /api/jobs/:id`
+- `POST /api/jobs`
+  - authenticated route
+  - requires `Authorization: Bearer <token>`
+- `PATCH /api/jobs/:id`
+  - updates job request status
+- `DELETE /api/jobs/:id`
+  - authenticated route
+  - only the request owner may delete
+
+## Notes
+
+- The frontend stores auth state in `localStorage` under `userInfo`.
+- Job status values are `Open`, `In Progress`, and `Closed`.
+- Requests include category, location, contact name, and contact email.
+- Validation is performed on both backend and frontend.
+
+## Deployment
+
+- Frontend is deployable to Vercel.
+- Backend can be deployed anywhere Node.js and MongoDB are supported.
+- Set `NEXT_PUBLIC_API_URL` to your deployed backend URL for production.
+
+---
+
+Built for a Full-Stack Developer Intern technical assessment.
