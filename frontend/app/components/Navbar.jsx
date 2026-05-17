@@ -48,7 +48,7 @@ export default function Navbar() {
                   <span className="text-sm font-medium text-slate-700 hidden md:block">{user.username}</span>
                   <button
                     onClick={logout}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-red-600 border border-red-200 bg-white rounded-xl hover:bg-red-600 hover:text-white hover:border-red-600 hover:shadow-md hover:shadow-red-500/20 transition-all duration-200 disabled:opacity-50"
+                    className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-red-600 bg-red-50 hover:bg-red-100 border border-red-200 rounded-lg transition-all duration-150"
                   >
                     Logout
                   </button>
