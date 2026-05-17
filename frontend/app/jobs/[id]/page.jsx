@@ -215,7 +215,7 @@ export default function JobDetailPage({ params }) {
         </div>
 
         {isOwner && (
-          <div className="px-7 sm:px-10 py-5 border-t border-slate-100 bg-slate-50/60 flex items-center justify-between gap-4">
+          <div className="px-7 sm:px-10 py-5 border-t border-slate-100 bg-slate-50/60 flex items-center justify-end gap-4">
             <button
               onClick={handleDelete}
               disabled={deleting}
