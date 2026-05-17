@@ -7,6 +7,10 @@ A small full-stack service request board built with:
 - Auth: JWT-based login/register
 - Styling: Tailwind CSS
 
+## Live Demo
+
+Check out the live application: [https://service-board-ten.vercel.app/](https://service-board-ten.vercel.app/)
+
 ## Project structure
 
 - `backend/` — Express API server, MongoDB connection, auth, and job endpoints

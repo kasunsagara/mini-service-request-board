@@ -216,10 +216,6 @@ export default function JobDetailPage({ params }) {
 
         {isOwner && (
           <div className="px-7 sm:px-10 py-5 border-t border-slate-100 bg-slate-50/60 flex items-center justify-between gap-4">
-            <div>
-              <p className="text-xs font-bold text-red-500 uppercase tracking-widest">Danger Zone</p>
-              <p className="text-xs text-slate-400 mt-0.5">This action cannot be undone.</p>
-            </div>
             <button
               onClick={handleDelete}
               disabled={deleting}
